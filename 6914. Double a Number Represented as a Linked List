@@ -1,0 +1,61 @@
+//6914. Double a Number Represented as a Linked List
+
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode doubleIt(ListNode head) {
+        
+               if (head == null) {
+            return null;
+        }
+
+        // Reverse the linked list
+        ListNode prev = null;
+        ListNode current = head;
+        while (current != null) {
+            ListNode nextTemp = current.next;
+            current.next = prev;
+            prev = current;
+            current = nextTemp;
+        }
+        head = prev;
+
+        // Double the number
+        int carry = 0;
+        current = head;
+        while (current != null) {
+            int newVal = current.val * 2 + carry;
+            current.val = newVal % 10;
+            carry = newVal / 10;
+            if (current.next == null && carry > 0) {
+                current.next = new ListNode(carry);
+                current=current.next;
+                carry = 0;
+            }
+            current = current.next;
+        }
+
+        // Reverse the linked list again to restore the original order
+        prev = null;
+        current = head;
+        while (current != null) {
+            ListNode nextTemp = current.next;
+            current.next = prev;
+            prev = current;
+            current = nextTemp;
+        }
+        head = prev;
+
+        return head;
+    }
+
+}
