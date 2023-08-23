@@ -1,7 +1,7 @@
 //6914. Double a Number Represented as a Linked List
 
 
-/**
+
  * Definition for singly-linked list.
  * public class ListNode {
  *     int val;
